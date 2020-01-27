@@ -1,0 +1,106 @@
+﻿html {
+  font-family: "Arial";
+}
+
+a {
+  //text-decoration: none;
+  color: black;
+}
+
+nav a {
+  color: black;
+  text-decoration: none;
+}
+
+.add-task-button {
+}
+
+.add-task-button-container {
+
+}
+
+.completed-task {
+  text-decoration: line-through;
+}
+
+.delete-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 11px 16px 9px 16px;
+}
+
+.delete-button:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+header {
+  border-bottom: 1px gray solid;
+  padding: 20px 10px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.input-box {
+}
+
+.list-container {
+  text-align: left;
+  width: 75%;
+  margin: 0 auto;
+  border: 1px gray solid;
+  border-radius: 5px;
+  padding: 0px 0px 20px 0px;
+}
+
+.list-container-wrapper {
+  //border: 1px black solid;
+  width: 50vw;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.login-form-container {
+  text-align: center;
+  width: 60%;
+ // height: 50%;
+  margin: 0 auto;
+  border: 1px gray solid;
+  border-radius: 5px;
+  padding: 0px 0px 20px 0px;
+}
+
+.login-form-container-wrapper {
+  //border: 1px black solid;
+  //height: 50vw;
+  width: 50vw;
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+.task-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-list li {
+  padding: 10px 20px;
+  /*change the cursor when it is hovered over*/
+  cursor: pointer; 
+  position: relative;
+}
+
+.task-list li:hover {
+  background-color: gray;
+}
+
+.task-list-header {
+  padding-left: 20px;
+}
+
+.task-list-inputbar {
+  padding-left: 20px;
+}

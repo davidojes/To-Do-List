@@ -1,0 +1,161 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+
+@model ToDoList.HomeModel
+@inject UserManager<IdentityUser> UserManager
+
+@using Controllers;
+@using Microsoft.AspNetCore.Hosting;
+@using ToDoList.Data;
+@using Services;
+@using Repositories;
+
+@{
+  ViewData["Header"] = @UserManager.GetUserName(User) + "'s To-Do List";
+  ViewData["Title"] = "Home";
+
+
+
+  var className = "";
+
+  // calls the controller method (test)
+  //ToDoListController toDoListController = new ToDoListController(new ToDoListService(new ToDoListRepository(new ToDoListContext()));
+
+  //var item1 = ToDoListController.GetItemsAsync();
+}
+
+<div class="list-container-wrapper">
+  <div class="list-container">
+    <div class="task-list-header">
+      <h2>Tasks</h2>
+      <h4>Click a task to complete it</h4>
+    </div>
+    <!-- ul to display to do list -->
+    <ul id="taskList" class="task-list">
+      @foreach (var item in Model.ToDoListItems)
+      {
+        if (item.IsCompeleted) { className = "completed-task"; }
+        else className = "";
+
+        if (item.UserEmail.Equals(UserManager.GetUserName(User)))
+        {
+          <li class="@className">@Html.DisplayFor(modelItem => item.Description)</li>
+          @*<a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+            <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>*@
+
+        }
+      }
+    </ul>
+    <br />
+
+    @*input bar*@
+    <div class="task-list-inputbar">
+      <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+          @*<label asp-for="ToDoListItem.UserEmail" class="control-label"></label>*@
+          @*concern that there may be browser vulnerabilities (being able to change useremail value)*@
+          <input asp-for="ToDoListItem.UserEmail" class="form-control" value="@UserManager.GetUserName(User)" placeholder="User Email" hidden />
+          <span asp-validation-for="ToDoListItem.UserEmail" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          @*<label asp-for="ToDoListItem.Description" class="control-label"></label>*@
+          <input asp-for="ToDoListItem.Description" class="form-control" placeholder="Enter Task" />
+          <input type="submit" value="Add Task" class="btn btn-primary add-task-button" />
+          <span asp-validation-for="ToDoListItem.Description" class="text-danger"></span>
+        </div>
+
+        @*iscompleted*@
+        <div class="form-group form-check">
+          @*<label class="form-check-label">*@
+            <input class="form-check-input input-box" asp-for="ToDoListItem.IsCompeleted" hidden/> @*@Html.DisplayNameFor(model => model.ToDoListItem.IsCompeleted)*@
+          @*</label>*@
+        </div>
+
+        @*submit button*@
+        <div class="add-task-button-container">
+          
+        </div>
+      </form>
+      @*end of input bar*@
+
+      <!-- text box to input task -->
+      @*<input type="text" id="inputBox" class="input-box" />*@
+      <!-- button to add inputed task -->
+      @*<input type="button" onclick="addTask()" id="addTaskButton" class="add-task-button" value="Add Task" />*@
+    </div>
+  </div>
+
+  <br />
+
+  <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+    <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+  </form>
+
+  @*<form>
+      <input type="submit" value="Logout" formaction="index" formmethod="GET" />
+    </form>*@
+</div>
+
+<script>
+  var userInput;
+  var inputIsValid = false;
+  var taskList = document.getElementById("taskList");
+  var taskListItems = taskList.children;
+  var newTaskListItem;
+  var span;
+
+
+  // add event listeners to task list items
+  taskListItems = Array.from(taskListItems);
+
+  taskListItems.forEach(taskListItemSetup);
+
+  // a function that attaches an onclick event listener to each list item
+  function taskListItemSetup(item) {
+    item.addEventListener("click", checkOffItem);
+    let span = document.createElement("span");
+    span.className = "delete-button";
+    span.appendChild(document.createTextNode("\u00D7"));
+    span.addEventListener("click", deleteTask);
+    item.appendChild(span);
+
+
+  }
+
+  // a function that checks or unchecks a list item depending on it's current state
+  function checkOffItem() {
+    if (this.className == "completed-task") this.className = "";
+    else this.className = "completed-task";
+  }
+
+  // a function that deletes a list item
+  function deleteTask() {
+    this.parentElement.remove();
+  }
+
+  // a function that adds the text in the input box to the task list
+  function addTask() {
+    userInput = document.getElementById("inputBox").value;
+    validateInput();
+
+    if (inputIsValid) {
+      //console.log("input valid");
+      newTaskListItem = document.createElement("li");
+      taskList.appendChild(newTaskListItem);
+      newTaskListItem.innerHTML = userInput;
+      taskListItemSetup(newTaskListItem);
+    }
+  }
+
+  // to check if user input is valid
+  function validateInput() {
+    if (userInput != "") inputIsValid = true;
+
+    else (alert("You need to enter some text"));
+  }
+</script>
+
+
+

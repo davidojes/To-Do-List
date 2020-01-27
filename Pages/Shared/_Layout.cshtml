@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] - ToDoList</title>
+  <link rel="stylesheet" href="~/css/normalize.css" />
+  <link rel="stylesheet" href="~/css/main.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/Index">todolist.com - </a>  @ViewData["Header"]
+      <a href="/Tasks/TaskIndex">|   TaskIndex</a>
+      <a href="/Tasks/TaskCreate">|   Create</a>
+      <a href="/Tasks/TaskDelete">|   Delete</a>
+      <partial name="_LoginPartial" />
+    </nav>
+  </header>
+
+  <main>
+    @RenderBody()
+  </main>
+
+  <footer>
+  </footer>
+
+  <script src="myscripts.js"></script>
+
+  @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,57 @@
+﻿@page
+@model ToDoList.IndexModel
+
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+
+
+@{
+  ViewData["Title"] = "Index";
+  ViewData["Header"] = @UserManager.GetUserName(User) + "'s To-Do List";
+}
+
+<h1>Index</h1>
+
+<p>
+  <a asp-page="TaskCreate">Create New</a>
+</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        @Html.DisplayNameFor(model => model.ToDoListItem[0].UserEmail)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.ToDoListItem[0].Description)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.ToDoListItem[0].IsCompeleted)
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Model.ToDoListItem) 
+    {
+      if (item.UserEmail.Equals(UserManager.GetUserName(User)))
+      {
+        <tr>
+          <td>
+            @Html.DisplayFor(modelItem => item.UserEmail)
+          </td>
+          <td>
+            @Html.DisplayFor(modelItem => item.Description)
+          </td>
+          <td>
+            @Html.DisplayFor(modelItem => item.IsCompeleted)
+          </td>
+          <td>
+            <a asp-page="./TaskEdit" asp-route-id="@item.Id">Edit</a> |
+            <a asp-page="./TaskDetails" asp-route-id="@item.Id">Details</a> |
+            <a asp-page="./TaskDelete" asp-route-id="@item.Id">Delete</a>
+          </td>
+        </tr>
+      }
+    }
+  </tbody>
+</table>
