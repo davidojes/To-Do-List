@@ -39,7 +39,13 @@
 
         if (item.UserEmail.Equals(UserManager.GetUserName(User)))
         {
-          <li class="@className">@Html.DisplayFor(modelItem => item.Description)</li>
+          <li class="@className">@Html.DisplayFor(modelItem => item.Description) 
+            <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
+              <input type="hidden" asp-for="ToDoListItem.Id" />
+              <input type="submit" class="delete-link" /> 
+            </form>
+          @*<a class="delete-link" asp-page="./Tasks/TaskDelete" asp-route-id="@item.Id"></a>*@
+      </li>
           @*<a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
             <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
             <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>*@
@@ -61,8 +67,8 @@
         </div>
         <div class="form-group">
           @*<label asp-for="ToDoListItem.Description" class="control-label"></label>*@
-          <input asp-for="ToDoListItem.Description" class="form-control" placeholder="Enter Task" />
-          <input type="submit" value="Add Task" class="btn btn-primary add-task-button" />
+          <input asp-for="ToDoListItem.Description" class="form-control" id="inputBox" placeholder="Enter Task" />
+          <input type="submit" value="Add Task" class="btn btn-primary add-task-button" onclick="addTask()" />
           <span asp-validation-for="ToDoListItem.Description" class="text-danger"></span>
         </div>
 
@@ -115,14 +121,21 @@
   // a function that attaches an onclick event listener to each list item
   function taskListItemSetup(item) {
     item.addEventListener("click", checkOffItem);
-    let span = document.createElement("span");
-    span.className = "delete-button";
-    span.appendChild(document.createTextNode("\u00D7"));
-    span.addEventListener("click", deleteTask);
-    item.appendChild(span);
-
+    
+    //span.addEventListener("click", deleteTask);
+    //item.appendChild(span);
 
   }
+
+  var deleteButtons = document.getElementsByClassName("delete-link");
+  deleteButtons = Array.from(deleteButtons);
+  deleteButtons.forEach(setUpDelete);
+  console.log(deleteButtons);
+
+  // adds delete to buttons
+  function setUpDelete(item) {
+    item.value = "\u00D7";
+}
 
   // a function that checks or unchecks a list item depending on it's current state
   function checkOffItem() {
@@ -138,7 +151,7 @@
   // a function that adds the text in the input box to the task list
   function addTask() {
     userInput = document.getElementById("inputBox").value;
-    validateInput();
+    validateInput(userInput);
 
     if (inputIsValid) {
       //console.log("input valid");
@@ -150,8 +163,11 @@
   }
 
   // to check if user input is valid
-  function validateInput() {
-    if (userInput != "") inputIsValid = true;
+  function validateInput(input) {
+    if (input.trim != "") {
+      console.log("x")
+      inputIsValid = true;
+    }
 
     else (alert("You need to enter some text"));
   }

@@ -38,7 +38,7 @@ namespace ToDoList
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostDeleteAsync(int? id)
         {
             if (id == null)
             {

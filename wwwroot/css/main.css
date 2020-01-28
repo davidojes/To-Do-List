@@ -16,24 +16,38 @@ nav a {
 }
 
 .add-task-button-container {
-
 }
 
 .completed-task {
   text-decoration: line-through;
 }
 
-.delete-button {
-  position: absolute;
-  right: 0;
-  top: 0;
+.delete-link {
+  background-color: inherit;
+  border: none;
   padding: 11px 16px 9px 16px;
 }
 
-.delete-button:hover {
-  background-color: #f44336;
-  color: white;
+
+
+  .delete-link:hover {
+    background-color: red;
+  }
+
+.delete-form {
+  display: inline;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0px;
+  text-decoration: none;
+  background-color: white;
+  //background-color: #f44336;
 }
+
+  .delete-form:hover {
+    background-color: white;
+  }
 
 header {
   border-bottom: 1px gray solid;
@@ -44,6 +58,8 @@ header {
 
 .input-box {
 }
+
+
 
 .list-container {
   text-align: left;
@@ -64,7 +80,7 @@ header {
 .login-form-container {
   text-align: center;
   width: 60%;
- // height: 50%;
+  // height: 50%;
   margin: 0 auto;
   border: 1px gray solid;
   border-radius: 5px;
@@ -86,16 +102,16 @@ header {
   padding: 0;
 }
 
-.task-list li {
-  padding: 10px 20px;
-  /*change the cursor when it is hovered over*/
-  cursor: pointer; 
-  position: relative;
-}
+  .task-list li {
+    padding: 10px 20px;
+    /*change the cursor when it is hovered over*/
+    cursor: pointer;
+    position: relative;
+  }
 
-.task-list li:hover {
-  background-color: gray;
-}
+    .task-list li:hover {
+      background-color: gray;
+    }
 
 .task-list-header {
   padding-left: 20px;

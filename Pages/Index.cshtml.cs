@@ -46,5 +46,24 @@ namespace ToDoList
 
       return RedirectToPage("Index");
     }
+
+    public async Task<IActionResult> OnPostDeleteAsync(int? id)
+    {
+      if (id == null)
+      {
+        return NotFound();
+      }
+
+      ToDoListItem = await _context.ToDoListItem.FindAsync(id);
+
+      if (ToDoListItem != null)
+      {
+        _context.ToDoListItem.Remove(ToDoListItem);
+        await _context.SaveChangesAsync();
+      }
+
+      return RedirectToPage("Index");
+    }
+
   }
 }
