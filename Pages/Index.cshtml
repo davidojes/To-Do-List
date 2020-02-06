@@ -14,7 +14,8 @@
   ViewData["Header"] = @UserManager.GetUserName(User) + "'s To-Do List";
   ViewData["Title"] = "Home";
 
-  var className = "";
+  var taskClass = "";
+  var isTicked = "false";
 }
 
 <div class="list-container-wrapper">
@@ -27,18 +28,32 @@
     <ul id="taskList" class="task-list">
       @foreach (var item in Model.ToDoListItems)
       {
-        if (item.IsCompeleted) { className = "completed-task"; }
-        else className = "";
+        if (item.IsCompeleted) { taskClass = "completed-task"; isTicked = "true"; }
+        else { taskClass = ""; isTicked = "false"; }
 
         if (item.UserEmail.Equals(UserManager.GetUserName(User)))
         {
-          <li class="@className">
-            @Html.DisplayFor(modelItem => item.Description)
-          <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
-            <input type="hidden" asp-for="ToDoListItem.Id" />
-            <input type="submit" class="delete-link" />
-          </form>
-        </li>
+      <li>
+        @*iscompleted*@
+        <span class="input-box">
+          <input checked="@isTicked" asp-for="toDoListItem.IsCompeleted" />
+        </span>
+
+        @*item text*@
+        <span class="@taskClass">@Html.DisplayFor(modelItem => item.Description)</span>
+
+        @*<form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
+      <input type="hidden" asp-for="toDoListItem.Id" />
+      <input type="submit" class="delete-link" />
+    </form>*@
+
+        <button class="edit-button">Edit</button>
+
+        <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
+          <input type="hidden" asp-for="toDoListItem.Id" />
+          <input type="submit" class="delete-link" />
+        </form>
+      </li>
         @*<a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
           <a asp-page="./Details" asp-route-id="@item.Id">Details</a> *@
 
@@ -53,19 +68,16 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
           @*concern that there may be browser vulnerabilities (being able to change useremail value)*@
-          <input asp-for="ToDoListItem.UserEmail" class="form-control" value="@UserManager.GetUserName(User)" placeholder="User Email" hidden />
-          <span asp-validation-for="ToDoListItem.UserEmail" class="text-danger"></span>
+          <input asp-for="toDoListItem.UserEmail" class="form-control" value="@UserManager.GetUserName(User)" placeholder="User Email" hidden />
+          <span asp-validation-for="toDoListItem.UserEmail" class="text-danger"></span>
         </div>
         <div class="form-group">
-          <input asp-for="ToDoListItem.Description" class="form-control" id="inputBox" placeholder="Enter Task" />
+          <input asp-for="toDoListItem.Description" class="form-control" id="inputBox" placeholder="Enter Task" />
           <input type="submit" value="Add Task" class="btn btn-primary add-task-button" onclick="addTask()" />
-          <span asp-validation-for="ToDoListItem.Description" class="text-danger"></span>
+          <span asp-validation-for="toDoListItem.Description" class="text-danger"></span>
         </div>
 
-        @*iscompleted*@
-        <div class="form-group form-check">
-          <input class="form-check-input input-box" asp-for="ToDoListItem.IsCompeleted" hidden />
-        </div>
+        
 
         @*submit button*@
         <div class="add-task-button-container">
@@ -89,6 +101,7 @@
   var taskList = document.getElementById("taskList");
   var taskListItems = taskList.children;
   var newTaskListItem;
+  var checkBox = document.getElementById("checkBox");
   var deleteButtons = document.getElementsByClassName("delete-link");
   deleteButtons = Array.from(deleteButtons);
   deleteButtons.forEach(setUpDelete);
@@ -105,6 +118,7 @@
   // a function that adds delete symbol to buttons
   function setUpDelete(item) {
     item.value = "\u00D7";
+  }
 
     // a function that adds the text in the input box to the task list
     function addTask() {
