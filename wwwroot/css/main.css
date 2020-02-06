@@ -11,12 +11,6 @@ nav a {
   text-decoration: none;
 }
 
-.add-task-button {
-}
-
-.add-task-button-container {
-}
-
 .completed-task {
   text-decoration: line-through;
 }
@@ -66,7 +60,6 @@ header {
 }
 
 .list-container-wrapper {
-  //border: 1px black solid;
   width: 50vw;
   margin: 0 auto;
   text-align: center;
