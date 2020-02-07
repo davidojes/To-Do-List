@@ -11,6 +11,14 @@ nav a {
   text-decoration: none;
 }
 
+.checkbox {
+
+}
+
+.checkbox-container {
+  margin-right: 5px;
+}
+
 .completed-task {
   text-decoration: line-through;
 }
@@ -18,7 +26,8 @@ nav a {
 .delete-link {
   background-color: inherit;
   border: none;
-  padding: 11px 16px 9px 16px;
+  padding: 3px 9px 3px 9px;
+  margin-right: 5px;
 }
 
 .delete-link:hover {
@@ -29,15 +38,20 @@ nav a {
   display: inline;
   position: absolute;
   right: 0;
-  top: 0;
   padding: 0px;
   text-decoration: none;
   background-color: white;
-  //background-color: #f44336;
 }
 
 .delete-form:hover {
   background-color: white;
+}
+
+.edit-button {
+  position: absolute;
+  right: 40px;
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
 
 header {
@@ -45,9 +59,6 @@ header {
   padding: 20px 10px;
   margin-bottom: 50px;
   text-align: center;
-}
-
-.input-box {
 }
 
 .list-container {
@@ -88,19 +99,9 @@ header {
 
 .task-list li {
   padding: 10px 20px;
-  /*changes the style of the cursor type when it hovers over a list item*/
-  cursor: pointer;
   position: relative;
 }
 
-.task-list li:hover {
-  background-color: gray;
-}
-
-.task-list-header {
-  padding-left: 20px;
-}
-
-.task-list-inputbar {
+.task-list-header, .task-list-inputbar {
   padding-left: 20px;
 }

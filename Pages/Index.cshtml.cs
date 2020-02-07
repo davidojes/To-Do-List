@@ -27,7 +27,7 @@ namespace ToDoList
 
     public List<ToDoListItem> ToDoListItems { get; set; }
     [BindProperty]
-    public ToDoListItem ToDoListItem { get; set; }
+    public ToDoListItem toDoListItem { get; set; }
 
     public async Task OnGetAsync()
     {
@@ -41,7 +41,7 @@ namespace ToDoList
         return Page();
       }
 
-      _context.ToDoListItem.Add(ToDoListItem);
+      _context.ToDoListItem.Add(toDoListItem);
       await _context.SaveChangesAsync();
 
       return RedirectToPage("Index");
@@ -54,11 +54,11 @@ namespace ToDoList
         return NotFound();
       }
 
-      ToDoListItem = await _context.ToDoListItem.FindAsync(id);
+      toDoListItem = await _context.ToDoListItem.FindAsync(id);
 
-      if (ToDoListItem != null)
+      if (toDoListItem != null)
       {
-        _context.ToDoListItem.Remove(ToDoListItem);
+        _context.ToDoListItem.Remove(toDoListItem);
         await _context.SaveChangesAsync();
       }
 

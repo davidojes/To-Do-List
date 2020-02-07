@@ -14,7 +14,8 @@
   ViewData["Header"] = @UserManager.GetUserName(User) + "'s To-Do List";
   ViewData["Title"] = "Home";
 
-  var className = "";
+  var taskClass = "";
+  var isTicked = "";
 }
 
 <div class="list-container-wrapper">
@@ -27,23 +28,33 @@
     <ul id="taskList" class="task-list">
       @foreach (var item in Model.ToDoListItems)
       {
-        if (item.IsCompeleted) { className = "completed-task"; }
-        else className = "";
+        if (item.IsCompeleted) { taskClass = "completed-task"; isTicked = "isTicked"; }
+        else { taskClass = ""; isTicked = ""; }
 
         if (item.UserEmail.Equals(UserManager.GetUserName(User)))
         {
-          <li class="@className">
-            @Html.DisplayFor(modelItem => item.Description)
-          <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
-            <input type="hidden" asp-for="ToDoListItem.Id" />
-            <input type="submit" class="delete-link" />
-          </form>
-        </li>
-        @*<a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-          <a asp-page="./Details" asp-route-id="@item.Id">Details</a> *@
+          <li>
+            @*iscompleted*@
+            <span class="checkbox-container">
+              <input type="checkbox" class="@isTicked checkbox" />
+              @*@Html.DisplayFor(model => model.toDoListItem.IsCompeleted)*@
+            </span>
 
+            @*item text*@
+            <span class="@taskClass">@Html.DisplayFor(modelItem => item.Description)</span>
+
+            <button class="edit-button">Edit</button>
+
+            <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
+              <input type="hidden" asp-for="toDoListItem.Id" />
+              <input type="submit" class="delete-link" />
+            </form>
+          </li>
+          @*<a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+            <a asp-page="./Details" asp-route-id="@item.Id">Details</a> *@
+
+        }
       }
-    }
     </ul>
     <br />
 
@@ -53,19 +64,16 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
           @*concern that there may be browser vulnerabilities (being able to change useremail value)*@
-          <input asp-for="ToDoListItem.UserEmail" class="form-control" value="@UserManager.GetUserName(User)" placeholder="User Email" hidden />
-          <span asp-validation-for="ToDoListItem.UserEmail" class="text-danger"></span>
+          <input asp-for="toDoListItem.UserEmail" class="form-control" value="@UserManager.GetUserName(User)" placeholder="User Email" hidden />
+          <span asp-validation-for="toDoListItem.UserEmail" class="text-danger"></span>
         </div>
         <div class="form-group">
-          <input asp-for="ToDoListItem.Description" class="form-control" id="inputBox" placeholder="Enter Task" />
+          <input asp-for="toDoListItem.Description" class="form-control" id="inputBox" placeholder="Enter Task" />
           <input type="submit" value="Add Task" class="btn btn-primary add-task-button" onclick="addTask()" />
-          <span asp-validation-for="ToDoListItem.Description" class="text-danger"></span>
+          <span asp-validation-for="toDoListItem.Description" class="text-danger"></span>
         </div>
 
-        @*iscompleted*@
-        <div class="form-group form-check">
-          <input class="form-check-input input-box" asp-for="ToDoListItem.IsCompeleted" hidden />
-        </div>
+
 
         @*submit button*@
         <div class="add-task-button-container">
@@ -89,56 +97,74 @@
   var taskList = document.getElementById("taskList");
   var taskListItems = taskList.children;
   var newTaskListItem;
+
   var deleteButtons = document.getElementsByClassName("delete-link");
   deleteButtons = Array.from(deleteButtons);
   deleteButtons.forEach(setUpDelete);
+
+  var checkBoxes = document.querySelectorAll("input[type='checkbox']");
+  checkBoxes = Array.from(checkBoxes);
+  checkBoxes.forEach(setUpCheckBox);
+  checkBoxes.forEach(checkOffItem);
+  console.log(checkBoxes);
 
   // add event listeners to task list items
   taskListItems = Array.from(taskListItems);
   taskListItems.forEach(taskListItemSetup);
 
+
+
   // a function that attaches an onclick event listener to each list item
   function taskListItemSetup(item) {
-    item.addEventListener("click", checkOffItem);
+    //item.addEventListener("click", checkOffItem);
   }
 
   // a function that adds delete symbol to buttons
   function setUpDelete(item) {
     item.value = "\u00D7";
+  }
 
-    // a function that adds the text in the input box to the task list
-    function addTask() {
-      userInput = document.getElementById("inputBox").value;
-      validateInput(userInput);
+  // a function that checks completed items
+  function setUpCheckBox(item) {
+    if (item.className == "isTicked checkbox")
+      item.checked = true;
 
-      if (inputIsValid) {
-        newTaskListItem = document.createElement("li");
-        taskList.appendChild(newTaskListItem);
-        newTaskListItem.innerHTML = userInput;
-        taskListItemSetup(newTaskListItem);
-      }
+    item.addEventListener("click", checkOffItem);
+  }
+
+  // a function that adds the text in the input box to the task list
+  function addTask() {
+    userInput = document.getElementById("inputBox").value;
+    validateInput(userInput);
+
+    if (inputIsValid) {
+      newTaskListItem = document.createElement("li");
+      taskList.appendChild(newTaskListItem);
+      newTaskListItem.innerHTML = userInput;
+      taskListItemSetup(newTaskListItem);
+    }
+  }
+
+  // a function that checks or unchecks a list item depending on it's current state
+  function checkOffItem() {
+    if (this.className == "completed-task") this.className = "";
+    else this.className = "completed-task";
+  }
+
+  // a function that deletes a list item
+  function deleteTask() {
+    this.parentElement.remove();
+  }
+
+  // a function that checks if user input is valid
+  function validateInput(input) {
+    if (input.trim() != "") {
+      console.log("x")
+      inputIsValid = true;
     }
 
-    // a function that checks or unchecks a list item depending on it's current state
-    function checkOffItem() {
-      if (this.className == "completed-task") this.className = "";
-      else this.className = "completed-task";
-    }
-
-    // a function that deletes a list item
-    function deleteTask() {
-      this.parentElement.remove();
-    }
-
-    // a function that checks if user input is valid
-    function validateInput(input) {
-      if (input.trim() != "") {
-        console.log("x")
-        inputIsValid = true;
-      }
-
-      else (alert("You need to enter some text"));
-    }
+    else (alert("You need to enter some text"));
+  }
 </script>
 
 
