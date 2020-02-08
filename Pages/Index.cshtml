@@ -35,11 +35,11 @@
         if (item.UserEmail.Equals(UserManager.GetUserName(User)))
         {
           <li>
-            
+
             <span class="checkbox-container">
               <input type="checkbox" class="@isTicked checkbox" />
               <!-- task list item -->
-              <span class="@taskClass">@Html.DisplayFor(modelItem => item.Description)</span>
+              <span class="@taskClass taskListItem">@Html.DisplayFor(modelItem => item.Description)</span>
             </span>
             <!-- edit button -->
             <button class="edit-button">Edit</button>
@@ -88,40 +88,79 @@
 <script>
   var userInput = "";
   var inputIsValid = false;
-  var taskList = document.getElementById("taskList");
-  var taskListItems = taskList.children;
+
+  // get tasklist and items
+  var taskListItems = document.getElementsByClassName("taskListItem");
+    //var taskListItems = taskList.children;
+  // convert the children of the task list into an array
+  taskListItems = Array.from(taskListItems);
+  // call the setup function on each task list item
+  taskListItems.forEach(setupTaskListItems);
   var newTaskListItem;
 
+  // get and setup all delete buttons
   var deleteButtons = document.getElementsByClassName("delete-link");
   deleteButtons = Array.from(deleteButtons);
-  deleteButtons.forEach(setUpDelete);
+  deleteButtons.forEach(setupDelete);
 
+  // get and setup all checkboxes
   var checkBoxes = document.querySelectorAll("input[type='checkbox']");
   checkBoxes = Array.from(checkBoxes);
-  checkBoxes.forEach(setUpCheckBox);
-  //checkBoxes.forEach(checkOffItem);
+  checkBoxes.forEach(setupCheckBox);
 
-  // add event listeners to task list items
-  taskListItems = Array.from(taskListItems);
-  taskListItems.forEach(taskListItemSetup);
+
+
+  /* these are all setup related functions */
 
   // a function that attaches an onclick event listener to each list item
-  function taskListItemSetup(item) {
-    //item.addEventListener("click", checkOffItem);
+  function setupTaskListItems(item) {
+    let pairedItem = item.parentElement.children[0];
+    item.addEventListener("click", function () {
+      if (item.className == "completed-task taskListItem") {
+        item.className = "taskListItem";
+        pairedItem.checked = false;
+        pairedItem.className = "checkbox"
+
+      }
+      else {
+        item.className = "completed-task taskListItem";
+        pairedItem.checked = true;
+        pairedItem.className = "isTicked checkbox"
+      }
+    });
+
   }
 
   // a function that adds delete symbol to buttons
-  function setUpDelete(item) {
+  function setupDelete(item) {
     item.value = "\u00D7";
   }
 
-  // a function that checks completed items
-  function setUpCheckBox(item) {
+  // a function that checks off complete task on load
+  // it also adds an onclick event listener that strikes out its paired list item
+  function setupCheckBox(item) {
     if (item.className == "isTicked checkbox")
       item.checked = true;
 
-    item.addEventListener("click", addCheckOff);
+    item.addEventListener("click", function () {
+      let pairedItem = this.parentElement.children[1];
+      console.log(this);
+      console.log(pairedItem);
+      if (this.checked == false) {
+        this.className = "checkbox";
+        this.checked = false;
+        pairedItem.className = "taskListItem";
+      }
+      else {
+        this.className = "isTicked checkbox";
+        this.checked = true;
+        pairedItem.className = "completed-task taskListItem"
+      }
+    });
   }
+
+
+  /* these are all feature related functions */
 
   // a function that adds the text in the input box to the task list
   function addTask() {
@@ -134,21 +173,6 @@
       newTaskListItem.innerHTML = userInput;
       taskListItemSetup(newTaskListItem);
     }
-  }
-
-  // a function that checks off complete task on load
-  // it also adds an onclick event listener that strikes out its paired list item
-  function setUpCheckBox(item) {
-    if (item.className == "isTicked checkbox")
-      item.checked = true;
-
-    item.addEventListener("click", function () {
-      console.log(this);
-      var pairedItem = this.parentElement.children[1];
-      console.log(pairedItem);
-      if (pairedItem.className == "completed-task") pairedItem.className = "";
-      else pairedItem.className = "completed-task";
-    });
   }
 
   // a function that deletes a list item
