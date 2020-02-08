@@ -37,11 +37,14 @@
             @*iscompleted*@
             <span class="checkbox-container">
               <input type="checkbox" class="@isTicked checkbox" />
+              @*@Html.DisplayFor(modelItem => item.Description)*@
+
+              @*item text*@
+              <span class="@taskClass">@Html.DisplayFor(modelItem => item.Description)</span>
               @*@Html.DisplayFor(model => model.toDoListItem.IsCompeleted)*@
             </span>
 
-            @*item text*@
-            <span class="@taskClass">@Html.DisplayFor(modelItem => item.Description)</span>
+
 
             <button class="edit-button">Edit</button>
 
@@ -105,8 +108,7 @@
   var checkBoxes = document.querySelectorAll("input[type='checkbox']");
   checkBoxes = Array.from(checkBoxes);
   checkBoxes.forEach(setUpCheckBox);
-  checkBoxes.forEach(checkOffItem);
-  console.log(checkBoxes);
+  //checkBoxes.forEach(checkOffItem);
 
   // add event listeners to task list items
   taskListItems = Array.from(taskListItems);
@@ -129,7 +131,7 @@
     if (item.className == "isTicked checkbox")
       item.checked = true;
 
-    item.addEventListener("click", checkOffItem);
+    item.addEventListener("click", addCheckOff);
   }
 
   // a function that adds the text in the input box to the task list
@@ -145,10 +147,19 @@
     }
   }
 
-  // a function that checks or unchecks a list item depending on it's current state
-  function checkOffItem() {
-    if (this.className == "completed-task") this.className = "";
-    else this.className = "completed-task";
+  // a function that checks off complete task on load 
+  // it also adds an onclick event listener that strikes out its paired list item
+  function setUpCheckBox(item) {
+    if (item.className == "isTicked checkbox")
+      item.checked = true;
+
+    item.addEventListener("click", function () {
+      console.log(this);
+      var pairedItem = this.parentElement.children[1];
+      console.log(pairedItem);
+      if (pairedItem.className == "completed-task") pairedItem.className = "";
+      else pairedItem.className = "completed-task";
+    });
   }
 
   // a function that deletes a list item
