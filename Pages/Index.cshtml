@@ -31,23 +31,19 @@
         if (item.IsCompeleted) { taskClass = "completed-task"; isTicked = "isTicked"; }
         else { taskClass = ""; isTicked = ""; }
 
+        @* checks if the primary key of the current list item matches the currently logged in user *@
         if (item.UserEmail.Equals(UserManager.GetUserName(User)))
         {
           <li>
-            @*iscompleted*@
+            
             <span class="checkbox-container">
               <input type="checkbox" class="@isTicked checkbox" />
-              @*@Html.DisplayFor(modelItem => item.Description)*@
-
-              @*item text*@
+              <!-- task list item -->
               <span class="@taskClass">@Html.DisplayFor(modelItem => item.Description)</span>
-              @*@Html.DisplayFor(model => model.toDoListItem.IsCompeleted)*@
             </span>
-
-
-
+            <!-- edit button -->
             <button class="edit-button">Edit</button>
-
+            <!-- delete button -->
             <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
               <input type="hidden" asp-for="toDoListItem.Id" />
               <input type="submit" class="delete-link" />
@@ -61,36 +57,31 @@
     </ul>
     <br />
 
-    @*input bar*@
+    <!-- add task bar -->
     <div class="task-list-inputbar">
       <form method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-          @*concern that there may be browser vulnerabilities (being able to change useremail value)*@
+          <!-- concern that there may be browser vulnerabilities (being able to change useremail value) -->
           <input asp-for="toDoListItem.UserEmail" class="form-control" value="@UserManager.GetUserName(User)" placeholder="User Email" hidden />
           <span asp-validation-for="toDoListItem.UserEmail" class="text-danger"></span>
         </div>
+        <!-- input box for entering task description -->
         <div class="form-group">
           <input asp-for="toDoListItem.Description" class="form-control" id="inputBox" placeholder="Enter Task" />
+          <!-- add task button -->
           <input type="submit" value="Add Task" class="btn btn-primary add-task-button" onclick="addTask()" />
           <span asp-validation-for="toDoListItem.Description" class="text-danger"></span>
         </div>
-
-
-
-        @*submit button*@
-        <div class="add-task-button-container">
-
-        </div>
       </form>
-      @*end of input bar*@
+      <!-- end of input bar -->
     </div>
   </div>
-
   <br />
 
+  <!-- logout button -->
   <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-    <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+    <button id="logout" type="submit">Logout</button>
   </form>
 </div>
 
@@ -113,8 +104,6 @@
   // add event listeners to task list items
   taskListItems = Array.from(taskListItems);
   taskListItems.forEach(taskListItemSetup);
-
-
 
   // a function that attaches an onclick event listener to each list item
   function taskListItemSetup(item) {
@@ -147,7 +136,7 @@
     }
   }
 
-  // a function that checks off complete task on load 
+  // a function that checks off complete task on load
   // it also adds an onclick event listener that strikes out its paired list item
   function setUpCheckBox(item) {
     if (item.className == "isTicked checkbox")
