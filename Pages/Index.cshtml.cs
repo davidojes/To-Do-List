@@ -65,5 +65,40 @@ namespace ToDoList
       return RedirectToPage("Index");
     }
 
+    // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+    // more details see https://aka.ms/RazorPagesCRUD.
+    public async Task<IActionResult> OnPostEditAsync()
+    {
+      if (!ModelState.IsValid)
+      {
+        return Page();
+      }
+
+      _context.Attach(toDoListItem).State = EntityState.Modified;
+
+      try
+      {
+        await _context.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!ToDoListItemExists(toDoListItem.Id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+
+      return RedirectToPage("Index");
+    }
+
+    private bool ToDoListItemExists(int id)
+    {
+      return _context.ToDoListItem.Any(e => e.Id == id);
+    }
+
   }
 }
