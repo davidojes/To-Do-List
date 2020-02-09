@@ -59,14 +59,11 @@
                 <span asp-validation-for="toDoListItem.UserEmail"></span>
               </div>
               <div>
+                <input class="@isTicked checkbox" asp-for="toDoListItem.IsCompeleted" />
                 <input asp-for="toDoListItem.Description" value="@item.Description" />
                 <span asp-validation-for="toDoListItem.Description"></span>
                 <!-- save button -->
-                <input type="submit" value="Save" class="" />
-              </div>
-              <!-- hidden checkbox -->
-              <div>
-                <input class="@isTicked checkbox" asp-for="toDoListItem.IsCompeleted" hidden />
+                <input type="submit" value="Save" class="save-button" />
               </div>
             </form>
           </li>
