@@ -54,6 +54,10 @@ nav a {
   padding-bottom: 1px;
 }
 
+.edit-bar {
+  display: none;
+}
+
 header {
   border-bottom: 1px gray solid;
   padding: 20px 10px;

@@ -34,42 +34,42 @@
         @* checks if the primary key of the current list item matches the currently logged in user *@
         if (item.UserEmail.Equals(UserManager.GetUserName(User)))
         {
-      <li>
+          <li>
 
-        <span class="checkbox-container">
-          <input type="checkbox" class="@isTicked checkbox" />
-          <!-- task list item -->
-          <span class="@taskClass taskListItem">@Html.DisplayFor(modelItem => item.Description)</span>
-        </span>
-        <!-- edit button -->
-        <button class="edit-button" onclick="editTask()">Edit</button>
-        <!-- delete button -->
-        <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
-          <input type="hidden" asp-for="toDoListItem.Id" />
-          <input type="submit" class="delete-link" />
-        </form>
+            <span class="checkbox-container">
+              <input type="checkbox" class="@isTicked checkbox" />
+              <!-- task list item -->
+              <span class="@taskClass taskListItem">@Html.DisplayFor(modelItem => item.Description)</span>
+            </span>
+            <!-- edit button -->
+            <button class="edit-button">Edit</button>
+            <!-- delete button -->
+            <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
+              <input type="hidden" asp-for="toDoListItem.Id" />
+              <input type="submit" class="delete-link" />
+            </form>
 
 
-        <!-- edit -->
-        <form method="post" asp-page-handler="edit" asp-route-id="@item.Id">
-          <div asp-validation-summary="ModelOnly"></div>
-          <input type="hidden" value="@item.Id" asp-for="toDoListItem.Id" />
-          <div>
-            <input asp-for="toDoListItem.UserEmail" value="@UserManager.GetUserName(User)" hidden />
-            <span asp-validation-for="toDoListItem.UserEmail" ></span>
-          </div>
-          <div>
-            <input asp-for="toDoListItem.Description" value="@item.Description" />
-            <span asp-validation-for="toDoListItem.Description"></span>
-            <!-- save button -->
-            <input type="submit" value="Save" class="" />
-          </div>
-          <!-- hidden checkbox -->
-          <div>
-              <input class="@isTicked checkbox" asp-for="toDoListItem.IsCompeleted" hidden />
-          </div>
-        </form>
-      </li>
+            <!-- edit -->
+            <form method="post" asp-page-handler="edit" asp-route-id="@item.Id" class="edit-bar">
+              <div asp-validation-summary="ModelOnly"></div>
+              <input type="hidden" value="@item.Id" asp-for="toDoListItem.Id" />
+              <div>
+                <input asp-for="toDoListItem.UserEmail" value="@UserManager.GetUserName(User)" hidden />
+                <span asp-validation-for="toDoListItem.UserEmail"></span>
+              </div>
+              <div>
+                <input asp-for="toDoListItem.Description" value="@item.Description" />
+                <span asp-validation-for="toDoListItem.Description"></span>
+                <!-- save button -->
+                <input type="submit" value="Save" class="" />
+              </div>
+              <!-- hidden checkbox -->
+              <div>
+                <input class="@isTicked checkbox" asp-for="toDoListItem.IsCompeleted" hidden />
+              </div>
+            </form>
+          </li>
 
         }
       }
@@ -90,7 +90,7 @@
           <input asp-for="toDoListItem.Description" id="inputBox" placeholder="Enter Task" />
           <!-- add task button -->
           <input type="submit" value="Add Task" class="add-task-button" onclick="addTask()" />
-          <span asp-validation-for="toDoListItem.Description" ></span>
+          <span asp-validation-for="toDoListItem.Description"></span>
         </div>
       </form>
       <!-- end of input bar -->
@@ -110,7 +110,7 @@
 
   // get tasklist and items
   var taskListItems = document.getElementsByClassName("taskListItem");
-    //var taskListItems = taskList.children;
+  //var taskListItems = taskList.children;
   // convert the children of the task list into an array
   taskListItems = Array.from(taskListItems);
   // call the setup function on each task list item
@@ -120,12 +120,17 @@
   // get and setup all delete buttons
   var deleteButtons = document.getElementsByClassName("delete-link");
   deleteButtons = Array.from(deleteButtons);
-  deleteButtons.forEach(setupDelete);
+  deleteButtons.forEach(setupDeleteButton);
 
   // get and setup all checkboxes
   var checkBoxes = document.querySelectorAll("input[type='checkbox']");
   checkBoxes = Array.from(checkBoxes);
   checkBoxes.forEach(setupCheckBox);
+
+  // get and set up all edit buttons
+  var editButtons = document.getElementsByClassName("edit-button");
+  editButtons = Array.from(editButtons);
+  editButtons.forEach(setupEditButton);
 
 
 
@@ -147,11 +152,20 @@
         pairedItem.className = "isTicked checkbox"
       }
     });
+  }
 
+  // a function that enables each edit button to show the edit form
+  function setupEditButton(editButton) {
+    editButton.addEventListener("click", function () {
+      editButton.parentElement.children[0].style.display = "none";
+      editButton.parentElement.children[1].style.display = "none";
+      let editBox = editButton.parentElement.getElementsByClassName("edit-bar")[0];
+      editBox.style.display = "block";
+    });
   }
 
   // a function that adds delete symbol to buttons
-  function setupDelete(item) {
+  function setupDeleteButton(item) {
     item.value = "\u00D7";
   }
 
@@ -173,7 +187,7 @@
       else {
         this.className = "isTicked checkbox";
         this.checked = true;
-        pairedItem.className = "completed-task taskListItem"
+        pairedItem.className = "completed-task taskListItem";
       }
     });
   }
@@ -192,10 +206,6 @@
       newTaskListItem.innerHTML = userInput;
       taskListItemSetup(newTaskListItem);
     }
-  }
-
-  function editTask() {
-
   }
 
   // a function that deletes a list item
