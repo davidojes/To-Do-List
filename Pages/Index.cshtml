@@ -34,23 +34,42 @@
         @* checks if the primary key of the current list item matches the currently logged in user *@
         if (item.UserEmail.Equals(UserManager.GetUserName(User)))
         {
-          <li>
+      <li>
 
-            <span class="checkbox-container">
-              <input type="checkbox" class="@isTicked checkbox" />
-              <!-- task list item -->
-              <span class="@taskClass taskListItem">@Html.DisplayFor(modelItem => item.Description)</span>
-            </span>
-            <!-- edit button -->
-            <button class="edit-button">Edit</button>
-            <!-- delete button -->
-            <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
-              <input type="hidden" asp-for="toDoListItem.Id" />
-              <input type="submit" class="delete-link" />
-            </form>
-          </li>
-          @*<a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-            <a asp-page="./Details" asp-route-id="@item.Id">Details</a> *@
+        <span class="checkbox-container">
+          <input type="checkbox" class="@isTicked checkbox" />
+          <!-- task list item -->
+          <span class="@taskClass taskListItem">@Html.DisplayFor(modelItem => item.Description)</span>
+        </span>
+        <!-- edit button -->
+        <button class="edit-button" onclick="editTask()">Edit</button>
+        <!-- delete button -->
+        <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
+          <input type="hidden" asp-for="toDoListItem.Id" />
+          <input type="submit" class="delete-link" />
+        </form>
+
+
+        <!-- edit -->
+        <form method="post" asp-page-handler="edit" asp-route-id="@item.Id">
+          <div asp-validation-summary="ModelOnly"></div>
+          <input type="hidden" value="@item.Id" asp-for="toDoListItem.Id" />
+          <div>
+            <input asp-for="toDoListItem.UserEmail" value="@UserManager.GetUserName(User)" hidden />
+            <span asp-validation-for="toDoListItem.UserEmail" ></span>
+          </div>
+          <div>
+            <input asp-for="toDoListItem.Description" value="@item.Description" />
+            <span asp-validation-for="toDoListItem.Description"></span>
+            <!-- save button -->
+            <input type="submit" value="Save" class="" />
+          </div>
+          <!-- hidden checkbox -->
+          <div>
+              <input class="@isTicked checkbox" asp-for="toDoListItem.IsCompeleted" hidden />
+          </div>
+        </form>
+      </li>
 
         }
       }
@@ -60,18 +79,18 @@
     <!-- add task bar -->
     <div class="task-list-inputbar">
       <form method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div>
           <!-- concern that there may be browser vulnerabilities (being able to change useremail value) -->
-          <input asp-for="toDoListItem.UserEmail" class="form-control" value="@UserManager.GetUserName(User)" placeholder="User Email" hidden />
-          <span asp-validation-for="toDoListItem.UserEmail" class="text-danger"></span>
+          <input asp-for="toDoListItem.UserEmail" value="@UserManager.GetUserName(User)" placeholder="User Email" hidden />
+          <span asp-validation-for="toDoListItem.UserEmail"></span>
         </div>
         <!-- input box for entering task description -->
-        <div class="form-group">
-          <input asp-for="toDoListItem.Description" class="form-control" id="inputBox" placeholder="Enter Task" />
+        <div>
+          <input asp-for="toDoListItem.Description" id="inputBox" placeholder="Enter Task" />
           <!-- add task button -->
-          <input type="submit" value="Add Task" class="btn btn-primary add-task-button" onclick="addTask()" />
-          <span asp-validation-for="toDoListItem.Description" class="text-danger"></span>
+          <input type="submit" value="Add Task" class="add-task-button" onclick="addTask()" />
+          <span asp-validation-for="toDoListItem.Description" ></span>
         </div>
       </form>
       <!-- end of input bar -->
@@ -173,6 +192,10 @@
       newTaskListItem.innerHTML = userInput;
       taskListItemSetup(newTaskListItem);
     }
+  }
+
+  function editTask() {
+
   }
 
   // a function that deletes a list item
