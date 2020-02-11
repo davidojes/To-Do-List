@@ -18,6 +18,10 @@ body {
   margin-right: 5px;
 }
 
+.checkbox:hover {
+  cursor: pointer;
+}
+
 .checkbox-container {
   display: inline;
   margin-right: 5px;
