@@ -38,9 +38,9 @@ body {
   margin-right: 5px;
 }
 
-  .delete-link:hover {
-    background-color: red;
-  }
+.delete-link:hover {
+  cursor: pointer;
+}
 
 .delete-form {
   display: inline;
