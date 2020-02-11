@@ -44,13 +44,13 @@ function setupTaskListItems(item) {
 
 function listItemEventListeners() {
 
-  let pairedItem = item.parentElement.children[0];
-  let li = item.parentElement.parentElement;
+  let pairedItem = this.parentElement.children[0];
+  let li = this.parentElement.parentElement;
   let editForm = li.getElementsByClassName("edit-bar")[0];
   let editFormCheckBox = editForm.getElementsByClassName("checkbox")[0];
 
-  if (item.className == "completed-task taskListItem") {
-    item.className = "taskListItem";
+  if (this.className == "completed-task taskListItem") {
+    this.className = "taskListItem";
     pairedItem.checked = false;
     pairedItem.className = "checkbox"
 
@@ -59,7 +59,7 @@ function listItemEventListeners() {
     editFormCheckBox.checked = false;
   }
   else {
-    item.className = "completed-task taskListItem";
+    this.className = "completed-task taskListItem";
     pairedItem.checked = true;
     pairedItem.className = "isTicked checkbox"
 
@@ -86,6 +86,7 @@ function editButtonEventListeners() {
   deleteButtons.forEach(function (item) { item.disabled = true; });
   taskListItems.forEach(function (item) {
     item.removeEventListener("click", listItemEventListeners);
+    item.style.cursor = "default";
     console.log(item);
   });
 }
