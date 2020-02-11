@@ -38,45 +38,57 @@ editButtons.forEach(setupEditButton);
 
 // a function that attaches an onclick event listener to each list item
 function setupTaskListItems(item) {
+
+  item.addEventListener("click", listItemEventListeners);
+}
+
+function listItemEventListeners() {
+
   let pairedItem = item.parentElement.children[0];
   let li = item.parentElement.parentElement;
   let editForm = li.getElementsByClassName("edit-bar")[0];
   let editFormCheckBox = editForm.getElementsByClassName("checkbox")[0];
-  item.addEventListener("click", function () {
 
-    if (item.className == "completed-task taskListItem") {
-      item.className = "taskListItem";
-      pairedItem.checked = false;
-      pairedItem.className = "checkbox"
+  if (item.className == "completed-task taskListItem") {
+    item.className = "taskListItem";
+    pairedItem.checked = false;
+    pairedItem.className = "checkbox"
 
-      // for edit form
-      editFormCheckBox.className = "checkbox";
-      editFormCheckBox.checked = false;
-    }
-    else {
-      item.className = "completed-task taskListItem";
-      pairedItem.checked = true;
-      pairedItem.className = "isTicked checkbox"
+    // for edit form
+    editFormCheckBox.className = "checkbox";
+    editFormCheckBox.checked = false;
+  }
+  else {
+    item.className = "completed-task taskListItem";
+    pairedItem.checked = true;
+    pairedItem.className = "isTicked checkbox"
 
-      // for edit form
-      editFormCheckBox.className = "isTicked checkbox";
-      editFormCheckBox.checked = true;
-    }
+    // for edit form
+    editFormCheckBox.className = "isTicked checkbox";
+    editFormCheckBox.checked = true;
+  }
 
-    editForm.submit();
-  });
+  editForm.submit();
 }
 
 // a function that enables each edit button to show the edit form
 function setupEditButton(editButton) {
-  editButton.addEventListener("click", function () {
-    editButton.parentElement.children[0].style.display = "none";
-    editButton.parentElement.children[1].style.display = "none";
-    let editBox = editButton.parentElement.getElementsByClassName("edit-bar")[0];
-    editBox.style.display = "block";
-  });
+  editButton.addEventListener("click", editButtonEventListeners);
 }
 
+function editButtonEventListeners() {
+  this.parentElement.children[0].style.display = "none";
+  this.parentElement.children[1].style.display = "none";
+  let editBox = this.parentElement.getElementsByClassName("edit-bar")[0];
+  editBox.style.display = "block";
+  editButtons.forEach(function (item) { item.disabled = true; });
+  checkBoxes.forEach(function (item) { item.disabled = true; });
+  deleteButtons.forEach(function (item) { item.disabled = true; });
+  taskListItems.forEach(function (item) {
+    item.removeEventListener("click", listItemEventListeners);
+    console.log(item);
+  });
+}
 // a function that adds delete symbol to buttons
 function setupDeleteButton(item) {
   item.value = "\u00D7";
