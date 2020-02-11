@@ -120,9 +120,12 @@ header {
 .task-list li {
   padding: 10px 20px;
   position: relative;
-  cursor: pointer;
 }
 
 .task-list-header, .task-list-inputbar {
   padding-left: 20px;
+}
+
+.taskListItem {
+  cursor: pointer;
 }
