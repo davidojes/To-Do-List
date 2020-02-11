@@ -16,7 +16,12 @@ nav a {
 }
 
 .checkbox-container {
+  display: inline;
   margin-right: 5px;
+}
+
+.checkbox-form {
+  display: inline;
 }
 
 .completed-task {
