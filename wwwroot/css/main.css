@@ -11,7 +11,19 @@ nav a {
   text-decoration: none;
 }
 
+.addtask-button {
+  background-color: #ffead6;
+  border: 1px solid gray;
+  border-radius: 2px;
+  padding: 5px 5px;
+}
+
+.button-hover:hover {
+  cursor: pointer;
+}
+
 body {
+  background-color: #ffead6;
 }
 
 .checkbox {
@@ -42,10 +54,6 @@ body {
   margin-right: 5px;
 }
 
-.delete-link:hover {
-  cursor: pointer;
-}
-
 .delete-form {
   display: inline;
   position: absolute;
@@ -58,11 +66,13 @@ body {
 .edit-button {
   position: absolute;
   right: 40px;
-  padding-top: 1px;
-  padding-bottom: 1px;
+  padding: 3px 10px;
+  background-color: #ffead6;
+  border: 1px solid gray;
+  border-radius: 2px;
 }
 
-.edit-bar {
+  .edit-bar {
   display: none;
   padding-top: 0px;
   padding-bottom: 0px;
@@ -71,8 +81,15 @@ body {
 header {
   border-bottom: 1px gray solid;
   padding: 20px 10px;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   text-align: center;
+  background-color: rgb(255, 204, 153);
+}
+
+.input-box {
+  border: 1px solid gray;
+  border-radius: 2px;
+  padding: 5px;
 }
 
 .list-container {
@@ -106,13 +123,25 @@ header {
   text-align: center;
 }
 
+.logout-button {
+  background-color: rgb(255, 204, 153);
+  border: 1px solid gray;
+  border-radius: 2px;
+  padding: 5px 10px;
+  margin-top: 10px;
+}
+
 .save-button {
   position: absolute;
   right: 40px;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-top: 1px;
-  padding-bottom: 1px;
+  padding: 3px 5.5px;
+  background-color: #ffead6;
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+.save-button:hover {
+  cursor: pointer;
 }
 
 .task-list {

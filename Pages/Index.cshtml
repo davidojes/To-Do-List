@@ -11,7 +11,7 @@
 @using Repositories;
 
 @{
-  ViewData["Header"] = @UserManager.GetUserName(User) + "'s To-Do List";
+  ViewData["Header"] = @UserManager.GetUserName(User) + "'s to-do list";
   ViewData["Title"] = "Home";
 
   var taskClass = "";
@@ -41,11 +41,11 @@
               <span class="@taskClass taskListItem">@Html.DisplayFor(modelItem => item.Description)</span>
             </span>
             <!-- edit button -->
-            <button class="edit-button">Edit</button>
+            <button class="edit-button button-hover">Edit</button>
             <!-- delete button -->
             <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
               <input type="hidden" asp-for="toDoListItem.Id" />
-              <input type="submit" class="delete-link" />
+              <input type="submit" class="delete-link button-hover" />
             </form>
 
             <!-- edit form -->
@@ -61,7 +61,7 @@
                 <input asp-for="toDoListItem.Description" value="@item.Description" />
                 <span asp-validation-for="toDoListItem.Description"></span>
                 <!-- save button -->
-                <input type="submit" value="Save" class="save-button" />
+                <input type="submit" value="Save" class="save-button button-hover" />
               </div>
             </form>
           </li>
@@ -82,9 +82,9 @@
         </div>
         <!-- input box for entering task description -->
         <div>
-          <input asp-for="toDoListItem.Description" id="inputBox" placeholder="Enter Task" />
+          <input asp-for="toDoListItem.Description" id="inputBox" class="input-box" placeholder="Enter Task" />
           <!-- add task button -->
-          <input type="submit" value="Add Task" class="add-task-button" onclick="addTask()" />
+          <input type="submit" value="Add" class="addtask-button button-hover" onclick="addTask()" />
           <span asp-validation-for="toDoListItem.Description"></span>
         </div>
       </form>
@@ -95,7 +95,7 @@
 
   <!-- logout button -->
   <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-    <button id="logout" type="submit">Logout</button>
+    <button id="logout" class="logout-button button-hover" type="submit">Logout</button>
   </form>
 </div>
 
