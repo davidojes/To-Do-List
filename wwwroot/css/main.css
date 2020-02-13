@@ -18,7 +18,7 @@ nav a {
   padding: 5px 5px;
 }
 
-.button-hover:hover {
+.button-hover:hover, .checkbox:hover {
   cursor: pointer;
 }
 
@@ -28,10 +28,6 @@ body {
 
 .checkbox {
   margin-right: 5px;
-}
-
-.checkbox:hover {
-  cursor: pointer;
 }
 
 .checkbox-container {

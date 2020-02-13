@@ -11,7 +11,7 @@
 @using Repositories;
 
 @{
-  ViewData["Header"] = @UserManager.GetUserName(User) + "'s to-do list";
+  ViewData["Header"] = "- " + @UserManager.GetUserName(User) + "'s to-do list";
   ViewData["Title"] = "Home";
 
   var taskClass = "";

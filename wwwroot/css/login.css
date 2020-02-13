@@ -1,0 +1,23 @@
+﻿body {
+}
+
+.checkbox {
+  padding: 15px 15px;
+}
+
+.form-control {
+  border: 1px solid gray;
+  border-radius: 2px;
+  padding: 5px;
+}
+
+.login-button {
+  padding: 5px 10px;
+  background-color: #ffead6;
+  border: 1px solid gray;
+  border-radius: 2px;
+}
+
+.login-form-container {
+  background-color: rgb(255, 204, 153);
+}
