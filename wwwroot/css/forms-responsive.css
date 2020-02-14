@@ -1,0 +1,43 @@
+﻿/* media queries */
+
+/*Large devices (desktops, less than 1200px)*/
+@media (max-width: 1200px) {
+  .login-form-container {
+    width: 50%;
+  }
+}
+
+
+/*Medium devices (tablets, less than 992px)*/
+@media (max-width: 992px) {
+  .login-form-container {
+    width: 60%;
+  }
+}
+
+/*Small devices (landscape phones, less than 768px)*/
+@media (max-width: 768px) {
+  html {
+    font-size: 1.2rem;
+  }
+
+  .login-form-container {
+    width: 80%;
+  }
+}
+
+/*Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 576px) {
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  html {
+    font-size: 1.1rem;
+  }
+
+  .login-form-container {
+    width: 95%;
+  }
+}

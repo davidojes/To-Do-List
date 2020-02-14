@@ -1,5 +1,6 @@
 ﻿html {
   font-family: "Arial";
+  font-size: 1.3rem;
 }
 
 a {
@@ -7,15 +8,14 @@ a {
 }
 
 nav a {
-  color: black;
   text-decoration: none;
 }
 
 .addtask-button {
   background-color: #ffead6;
   border: 1px solid gray;
-  border-radius: 2px;
-  padding: 5px 5px;
+  border-radius: 3px;
+  padding: 5px;
 }
 
 .button-hover:hover, .checkbox:hover {
@@ -24,7 +24,7 @@ nav a {
 
 body {
   background-color: #ffead6;
-  font-size: 1.3rem;
+  
 }
 
 .checkbox {
@@ -66,75 +66,68 @@ body {
   padding: 3px 10px;
   background-color: #ffead6;
   border: 1px solid gray;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
-  .edit-bar {
+.edit-bar {
   display: none;
   padding-top: 0px;
   padding-bottom: 0px;
 }
 
+.edit-input-box {
+  border: 1px solid gray;
+  border-radius: 3px;
+  padding: 5px;
+}
+
 header {
-  border-bottom: 1px gray solid;
   padding: 20px 10px;
   margin-bottom: 40px;
   text-align: center;
   background-color: rgb(255, 204, 153);
+  box-shadow: 0px 4px 6px rgba(0,0,0,.2);
 }
 
 .input-box {
   border: 1px solid gray;
-  border-radius: 2px;
+  border-radius: 3px;
   padding: 5px;
 }
 
 .list-container {
   text-align: left;
-  width: 75%;
+  width: 40%;
   margin: 0 auto;
-  border: 1px gray solid;
+  /*border: 1px gray solid;*/
   border-radius: 5px;
-  padding: 0px 0px 20px 0px;
+  padding: 3px 0px 20px 0px;
   background-color: rgb(255, 204, 153);
+  box-shadow: 0px 6px 6px rgba(0,0,0,.2);
 }
 
 .list-container-wrapper {
-  width: 50vw;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.login-form-container {
-  text-align: center;
-  width: 60%;
-  margin: 0 auto;
-  border: 1px gray solid;
-  border-radius: 5px;
-  padding: 0px 0px 20px 0px;
-}
-
-.login-form-container-wrapper {
-  width: 50vw;
+  width: 100vw;
   margin: 0 auto;
   text-align: center;
 }
 
 .logout-button {
   background-color: rgb(255, 204, 153);
-  border: 1px solid gray;
-  border-radius: 2px;
-  padding: 5px 10px;
+  border: 1px solid rgb(255, 204, 153);
+  border-radius: 5px;
+  padding: 10px 15px;
   margin-top: 10px;
+  box-shadow: 3px 3px 6px rgba(0,0,0,.2);
 }
 
 .save-button {
   position: absolute;
   right: 40px;
-  padding: 3px 5.5px;
+  padding: 5px;
   background-color: #ffead6;
   border: 1px solid gray;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
 .save-button:hover {
@@ -147,10 +140,10 @@ header {
   padding: 0;
 }
 
-  .task-list li {
-    padding: 10px 20px;
-    position: relative;
-  }
+.task-list li {
+  padding: 10px 20px;
+  position: relative;
+}
 
 .task-list-header, .task-list-inputbar {
   padding-left: 20px;
@@ -159,3 +152,5 @@ header {
 .taskListItem {
   cursor: pointer;
 }
+
+

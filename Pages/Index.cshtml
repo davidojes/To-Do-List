@@ -58,7 +58,7 @@
               </div>
               <div>
                 <input class="@isTicked checkbox" asp-for="toDoListItem.IsCompeleted" />
-                <input asp-for="toDoListItem.Description" value="@item.Description" />
+                <input class="edit-input-box" asp-for="toDoListItem.Description" value="@item.Description" />
                 <span asp-validation-for="toDoListItem.Description"></span>
                 <!-- save button -->
                 <input type="submit" value="Save" class="save-button button-hover" />
