@@ -30,8 +30,9 @@
       <br />
       <div class="form-group">
         <input required asp-for="Input.ConfirmPassword" class="form-control" placeholder="Confirm Password" />
-        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+
       </div>
+      <div asp-validation-for="Input.ConfirmPassword" class="text-danger"></div>
       <br />
       <button type="submit" class="register-button button-hover">Register</button>
     </form>
