@@ -119,6 +119,12 @@ header {
   padding: 5px;
 }
 
+.input-box-prompt {
+  border: 2px solid #b82121;
+  border-radius: 3px;
+  padding: 5px;
+}
+
 .list-container {
   text-align: left;
   width: 40%;

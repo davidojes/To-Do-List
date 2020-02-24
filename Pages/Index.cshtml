@@ -95,9 +95,9 @@
         </div>
         <!-- input box for entering task description -->
         <div>
-          <input asp-for="toDoListItem.Description" id="inputBox" class="input-box" placeholder="Enter Task" />
+          <input asp-for="toDoListItem.Description" id="inputBox" class="input-box" placeholder="Enter Task" required />
           <!-- add task button -->
-          <input id="addTaskButton" type="button" value="Add" class="addtask-button button-hover" onclick="addTask()" />
+          <input id="addTaskButton" type="button" value="Add" class="addtask-button button-hover" />
           <span asp-validation-for="toDoListItem.Description"></span>
         </div>
       </form>

@@ -5,6 +5,9 @@ var userInput = "";
 var inputIsValid = false;
 var editValue = "";
 var newTaskListItem;
+var inputBox = document.getElementById("inputBox");
+var addTaskButton = document.getElementById("addTaskButton");
+addTaskButton.addEventListener("click", addTask);
 
 // get tasklist and items
 var taskListItems = document.getElementsByClassName("taskListItem");
@@ -47,9 +50,7 @@ function listItemEventListeners() {
   checkBoxes.forEach(function (item) { item.disabled = true; });
   deleteButtons.forEach(function (item) { item.disabled = true; });
   // to be moved to var at the top of the file
-  let addTaskButton = document.getElementById("addTaskButton");
   addTaskButton.disabled = true;
-  let inputBox = document.getElementById("inputBox");
   inputBox.disabled = true;
 
   taskListItems.forEach(function (item) {
@@ -114,7 +115,7 @@ function setupCheckBox(item) {
 
 // a function that adds the text in the input box to the task list
 function addTask() {
-  userInput = document.getElementById("inputBox").value;
+  userInput = inputBox.value;
   validateInput(userInput);
 
   if (inputIsValid) {
@@ -123,6 +124,9 @@ function addTask() {
     newTaskListItem.innerHTML = userInput;
     setupTaskListItems(newTaskListItem);
     this.parentElement.parentElement.submit();
+  }
+  else {
+    inputBox.className = "input-box-prompt";
   }
 }
 
@@ -137,5 +141,5 @@ function validateInput(input) {
     inputIsValid = true;
   }
 
-  else (alert("Field can't be blank"));
+  else inputIsValid = false;
 }
