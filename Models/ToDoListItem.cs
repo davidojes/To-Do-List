@@ -13,6 +13,6 @@ namespace ToDoList.Models
 
     public string UserEmail { get; set; }
     public string Description { get; set; }
-    public bool IsCompeleted { get; set; }
+    public bool IsCompleted { get; set; }
   }
 }

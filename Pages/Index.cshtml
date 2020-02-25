@@ -28,7 +28,7 @@
     <ul id="taskList" class="task-list">
       @foreach (var item in Model.ToDoListItems)
       {
-        if (item.IsCompeleted) { taskClass = "completed-task"; isTicked = "isTicked"; }
+        if (item.IsCompleted) { taskClass = "completed-task"; isTicked = "isTicked"; }
         else { taskClass = ""; isTicked = ""; }
 
         @* checks if the primary key of the current list item matches the currently logged in user *@
@@ -63,7 +63,7 @@
                   <input type="checkbox" class="@isTicked checkbox" />
                 </div>
 
-                <input type="checkbox" class="@isTicked hidden-checkbox" asp-for="toDoListItem.IsCompeleted" />
+                <input type="checkbox" class="@isTicked hidden-checkbox" asp-for="toDoListItem.IsCompleted" />
                 <!-- task list item -->
                 <div class="taskListItem">
                   <textarea spellcheck="false" type="text" class="edit-input-area" asp-for="toDoListItem.Description"></textarea>
