@@ -14,7 +14,7 @@
     <section>
       <form id="account" method="post">
         <h4>Log In</h4>
-        @*<div asp-validation-summary="All" class="text-danger"></div>*@
+        <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group">
           <input required asp-for="Input.Email" class="form-control" placeholder="Email Address" />
           <span asp-validation-for="Input.Email" class="text-danger"></span>
@@ -26,13 +26,13 @@
         </div>
         <br />
 
-        @*<div>
+        <div>
           <label class="button-hover" asp-for="Input.RememberMe">
             <input class="checkbox button-hover" asp-for="Input.RememberMe" />
             @Html.DisplayNameFor(m => m.Input.RememberMe)
           </label>
-        </div>*@
-
+        </div>
+        <br />
         <div class="form-group">
           <button type="submit" class="login-button button-hover">Log in</button>
         </div>
@@ -42,7 +42,7 @@
             </p>*@
         </div>
         <p>
-          <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+          <a class="authentication-link" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
         </p>
       </form>
     </section>

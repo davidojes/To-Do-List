@@ -11,7 +11,7 @@
 @using Repositories;
 
 @{
-  ViewData["Header"] = "- " + @UserManager.GetUserName(User) + "'s to-do list";
+  ViewData["Header"] = @UserManager.GetUserName(User) + "'s to-do list";
   ViewData["Title"] = "Home";
 
   var taskClass = "";
@@ -22,7 +22,7 @@
   <div class="list-container">
     <div class="task-list-header">
       <h2>Tasks</h2>
-      <h4>Click a task to complete it</h4>
+      <h4>Click a task to edit it</h4>
     </div>
     <!-- ul to display to do list -->
     <ul id="taskList" class="task-list">
@@ -35,35 +35,48 @@
         if (item.UserEmail.Equals(UserManager.GetUserName(User)))
         {
           <li>
-            <span class="checkbox-container">
-              <input type="checkbox" class="@isTicked checkbox" />
-              <!-- task list item -->
-              <span class="@taskClass taskListItem">@Html.DisplayFor(modelItem => item.Description)</span>
-            </span>
-            <!-- edit button -->
-            <button class="edit-button button-hover">Edit</button>
-            <!-- delete button -->
-            <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
-              <input type="hidden" asp-for="toDoListItem.Id" />
-              <input type="submit" class="delete-link button-hover" />
-            </form>
+            <div class="list-item-container">
+              <div class="checkbox-container">
+                <input type="checkbox" class="@isTicked checkbox" />
+                <!-- task list item -->
+              </div>
+              <div class="@taskClass taskListItem">
+                @Html.DisplayFor(modelItem => item.Description)
+              </div>
+
+              <!-- delete button -->
+              <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
+                <input type="hidden" asp-for="toDoListItem.Id" />
+                <input type="submit" class="delete-link button-hover" />
+              </form>
+            </div>
 
             <!-- edit form -->
-            <form method="post" asp-page-handler="edit" asp-route-id="@item.Id" class="edit-bar">
-              <div asp-validation-summary="ModelOnly"></div>
-              <input type="hidden" value="@item.Id" asp-for="toDoListItem.Id" />
-              <div>
-                <input asp-for="toDoListItem.UserEmail" value="@UserManager.GetUserName(User)" hidden />
-                <span asp-validation-for="toDoListItem.UserEmail"></span>
-              </div>
-              <div>
-                <input class="@isTicked checkbox" asp-for="toDoListItem.IsCompeleted" />
-                <input class="edit-input-box" asp-for="toDoListItem.Description" value="@item.Description" />
+            <div class="edit-div">
+              <form method="post" asp-page-handler="edit" asp-route-id="@item.Id" class="edit-bar">
+                <div asp-validation-summary="ModelOnly"></div>
+                <input type="hidden" value="@item.Id" asp-for="toDoListItem.Id" />
+                <div>
+                  <input asp-for="toDoListItem.UserEmail" value="@UserManager.GetUserName(User)" hidden />
+                </div>
+                <div class="checkbox-container">
+                  <input type="checkbox" class="@isTicked checkbox" />
+                </div>
+
+                <input type="checkbox" class="@isTicked hidden-checkbox" asp-for="toDoListItem.IsCompeleted" />
+                <!-- task list item -->
+                <div class="taskListItem">
+                  <textarea spellcheck="false" type="text" class="edit-input-area" asp-for="toDoListItem.Description"></textarea>
+                </div>
                 <span asp-validation-for="toDoListItem.Description"></span>
                 <!-- save button -->
                 <input type="submit" value="Save" class="save-button button-hover" />
-              </div>
-            </form>
+              </form>
+              <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
+                <input type="hidden" asp-for="toDoListItem.Id" />
+                <input type="submit" class="delete-link button-hover" />
+              </form>
+            </div>
           </li>
 
         }
@@ -73,7 +86,7 @@
 
     <!-- add task bar -->
     <div class="task-list-inputbar">
-      <form method="post">
+      <form class="add-task-form" method="post">
         <div asp-validation-summary="ModelOnly"></div>
         <div>
           <!-- concern that there may be browser vulnerabilities (being able to change useremail value) -->
@@ -82,9 +95,9 @@
         </div>
         <!-- input box for entering task description -->
         <div>
-          <input asp-for="toDoListItem.Description" id="inputBox" class="input-box" placeholder="Enter Task" />
+          <input asp-for="toDoListItem.Description" id="inputBox" class="input-box" placeholder="Enter Task" required />
           <!-- add task button -->
-          <input type="submit" value="Add" class="addtask-button button-hover" onclick="addTask()" />
+          <input id="addTaskButton" type="button" value="Add" class="addtask-button button-hover" />
           <span asp-validation-for="toDoListItem.Description"></span>
         </div>
       </form>
