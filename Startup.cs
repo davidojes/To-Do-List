@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ToDoList.Controllers;
 using ToDoList.Data;
+using ToDoList.Models;
 using ToDoList.Repositories;
 using ToDoList.Services;
 
@@ -34,7 +35,7 @@ namespace ToDoList
 
       services.AddDbContext<ToDoListContext>(options =>
             options.UseSqlServer(connectionString));
-      services.AddDefaultIdentity<IdentityUser>(options =>
+      services.AddDefaultIdentity<ApplicationUser>(options =>
                                                 options.SignIn.RequireConfirmedAccount = false)
           .AddEntityFrameworkStores<ToDoListContext>();
       services.AddRazorPages();

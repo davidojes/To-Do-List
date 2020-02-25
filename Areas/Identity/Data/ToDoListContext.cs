@@ -9,7 +9,7 @@ using ToDoList.Models;
 
 namespace ToDoList.Data
 {
-    public class ToDoListContext : IdentityDbContext<IdentityUser>
+    public class ToDoListContext : IdentityDbContext<ApplicationUser>
     {
         public ToDoListContext(DbContextOptions<ToDoListContext> options)
             : base(options)
