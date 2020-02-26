@@ -1,8 +1,9 @@
 ﻿@page
 @model ToDoList.IndexModel
+@using ToDoList.Models;
 
 @using Microsoft.AspNetCore.Identity
-@inject UserManager<IdentityUser> UserManager
+@inject UserManager<ApplicationUser> UserManager
 
 
 @{
@@ -31,7 +32,7 @@
     </tr>
   </thead>
   <tbody>
-    @foreach (var item in Model.ToDoListItem) 
+    @foreach (var item in Model.ToDoListItem)
     {
       if (item.UserEmail.Equals(UserManager.GetUserName(User)))
       {

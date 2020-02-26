@@ -2,7 +2,8 @@
 @using Microsoft.AspNetCore.Identity
 
 @model ToDoList.HomeModel
-@inject UserManager<IdentityUser> UserManager
+@inject UserManager<ApplicationUser> UserManager
+@using ToDoList.Models;
 
 @using Controllers;
 @using Microsoft.AspNetCore.Hosting;
@@ -11,7 +12,9 @@
 @using Repositories;
 
 @{
-  ViewData["Header"] = @UserManager.GetUserName(User) + "'s to-do list";
+  //ViewData["Header"] = @UserManager.GetUserName(User) + "'s to-do list";
+  var user = await UserManager.GetUserAsync(User);
+  ViewData["Header"] = user.DisplayName + "'s to-do list";
   ViewData["Title"] = "Home";
 
   var taskClass = "";

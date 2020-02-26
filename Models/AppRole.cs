@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace ToDoList.Models
 {
-  public class ApplicationUser : IdentityUser<string>
+  public class AppRole : IdentityRole<string>
   {
-    public string DisplayName { get; set; }
+    public AppRole() { }
+
+    public AppRole(string name) {
+      Name = name;
+    }
   }
 }

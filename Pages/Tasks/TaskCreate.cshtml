@@ -1,9 +1,10 @@
 ﻿@page
 @using Microsoft.AspNetCore.Identity
 @model ToDoList.CreateModel
+@using ToDoList.Models;
 
 
-@inject UserManager<IdentityUser> UserManager
+@inject UserManager<ApplicationUser> UserManager
 
 @{
   ViewData["Title"] = "Create";
@@ -18,10 +19,10 @@
   <div class="col-md-4">
     <form method="post">
       <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-      <div class="form-group" >
+      <div class="form-group">
         @*<label asp-for="ToDoListItem.UserEmail" class="control-label"></label>*@
-       @* concern that there may be browser vulnerabilities (being able to change useremail value)*@
-        <input asp-for="ToDoListItem.UserEmail" class="form-control" value="@UserManager.GetUserName(User)" placeholder="User Email"  />
+        @* concern that there may be browser vulnerabilities (being able to change useremail value)*@
+        <input asp-for="ToDoListItem.UserEmail" class="form-control" value="@UserManager.GetUserName(User)" placeholder="User Email" />
         <span asp-validation-for="ToDoListItem.UserEmail" class="text-danger"></span>
       </div>
       <div class="form-group">
@@ -30,10 +31,10 @@
         <span asp-validation-for="ToDoListItem.Description" class="text-danger"></span>
       </div>
       @*<div class="form-group form-check">
-        <label class="form-check-label">
-          <input class="form-check-input" asp-for="ToDoListItem.IsCompeleted" checked /> @Html.DisplayNameFor(model => model.ToDoListItem.IsCompeleted)
-        </label>
-      </div>*@
+          <label class="form-check-label">
+            <input class="form-check-input" asp-for="ToDoListItem.IsCompeleted" checked /> @Html.DisplayNameFor(model => model.ToDoListItem.IsCompeleted)
+          </label>
+        </div>*@
       <div class="form-group">
         <input type="submit" value="Create" class="btn btn-primary" />
       </div>
