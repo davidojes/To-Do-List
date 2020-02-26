@@ -30,7 +30,33 @@ var hiddenCheckBoxes = document.getElementsByClassName("hidden-checkbox");
 hiddenCheckBoxes = Array.from(hiddenCheckBoxes);
 hiddenCheckBoxes.forEach(setupHiddenCheckBox);
 
+var textAreas = document.getElementsByClassName("edit-input-area");
+textAreas = Array.from(textAreas);
+textAreas.forEach(setupTextArea);
+
 /* these are all setup related functions */
+
+inputBox.addEventListener("keydown", function (e) {
+  if (e.keyCode == 13 && !e.shiftKey) {
+    //console.log(e.code);
+    // prevent default behavior
+    e.preventDefault();
+    addTaskButton.click();
+  }
+});
+
+function setupTextArea(item) {
+  item.addEventListener("keydown", function (e) {
+    if (e.keyCode == 13 && !e.shiftKey) {
+      //console.log(e.code);
+      // prevent default behavior
+      e.preventDefault();
+      var saveButton = item.parentElement.parentElement.getElementsByClassName("save-button")[0];
+      console.log(saveButton);
+      saveButton.click();
+    }
+  });
+}
 
 function setupTaskListItems(item) {
 
