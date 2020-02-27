@@ -4,12 +4,8 @@
 @model ToDoList.HomeModel
 @inject UserManager<ApplicationUser> UserManager
 @using ToDoList.Models;
-
-@using Controllers;
 @using Microsoft.AspNetCore.Hosting;
 @using ToDoList.Data;
-@using Services;
-@using Repositories;
 
 @{
   //ViewData["Header"] = @UserManager.GetUserName(User) + "'s to-do list";
@@ -34,53 +30,54 @@
         if (item.IsCompleted) { taskClass = "completed-task"; isTicked = "isTicked"; }
         else { taskClass = ""; isTicked = ""; }
 
+
         @* checks if the primary key of the current list item matches the currently logged in user *@
-        if (item.UserEmail.Equals(UserManager.GetUserName(User)))
-        {
-          <li>
-            <div class="list-item-container">
-              <div class="checkbox-container">
-                <input type="checkbox" class="@isTicked checkbox" />
-                <!-- task list item -->
-              </div>
-              <div class="@taskClass taskListItem">
-                @Html.DisplayFor(modelItem => item.Description)
-              </div>
+      if (item.UserEmail.Equals(UserManager.GetUserName(User)))
+      {
+      <li>
+        <div class="list-item-container">
+          <div class="checkbox-container">
+            <input type="checkbox" class="@isTicked checkbox" />
+            <!-- task list item -->
+          </div>
+          <div class="@taskClass taskListItem">
+            @Html.DisplayFor(modelItem => item.Description)
+          </div>
 
-              <!-- delete button -->
-              <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
-                <input type="hidden" asp-for="toDoListItem.Id" />
-                <input type="submit" class="delete-link button-hover" />
-              </form>
+          <!-- delete button -->
+          <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
+            <input type="hidden" asp-for="ToDoListItem.Id" />
+            <input type="submit" class="delete-link button-hover" />
+          </form>
+        </div>
+
+        <!-- edit form -->
+        <div class="edit-div">
+          <form method="post" asp-page-handler="edit" asp-route-id="@item.Id" class="edit-bar">
+            <div asp-validation-summary="ModelOnly"></div>
+            <input type="hidden" value="@item.Id" asp-for="ToDoListItem.Id" />
+            <div>
+              <input asp-for="ToDoListItem.UserEmail" value="@UserManager.GetUserName(User)" hidden />
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" class="@isTicked checkbox" />
             </div>
 
-            <!-- edit form -->
-            <div class="edit-div">
-              <form method="post" asp-page-handler="edit" asp-route-id="@item.Id" class="edit-bar">
-                <div asp-validation-summary="ModelOnly"></div>
-                <input type="hidden" value="@item.Id" asp-for="toDoListItem.Id" />
-                <div>
-                  <input asp-for="toDoListItem.UserEmail" value="@UserManager.GetUserName(User)" hidden />
-                </div>
-                <div class="checkbox-container">
-                  <input type="checkbox" class="@isTicked checkbox" />
-                </div>
-
-                <input type="checkbox" class="@isTicked hidden-checkbox" asp-for="toDoListItem.IsCompleted" />
-                <!-- task list item -->
-                <div class="taskListItem">
-                  <textarea spellcheck="false" type="text" class="edit-input-area" asp-for="toDoListItem.Description"></textarea>
-                </div>
-                <span asp-validation-for="toDoListItem.Description"></span>
-                <!-- save button -->
-                <input type="submit" value="Save" class="save-button button-hover" />
-              </form>
-              <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
-                <input type="hidden" asp-for="toDoListItem.Id" />
-                <input type="submit" class="delete-link button-hover" />
-              </form>
+            <input type="checkbox" class="@isTicked hidden-checkbox" asp-for="ToDoListItem.IsCompleted" />
+            <!-- task list item -->
+            <div class="taskListItem">
+              <textarea spellcheck="false" type="text" class="edit-input-area" asp-for="ToDoListItem.Description"></textarea>
             </div>
-          </li>
+            <span asp-validation-for="ToDoListItem.Description"></span>
+            <!-- save button -->
+            <input type="submit" value="Save" class="save-button button-hover" />
+          </form>
+          <form class="delete-form" method="post" asp-page-handler="delete" asp-route-id="@item.Id">
+            <input type="hidden" asp-for="ToDoListItem.Id" />
+            <input type="submit" class="delete-link button-hover" />
+          </form>
+        </div>
+      </li>
 
         }
       }
@@ -93,15 +90,15 @@
         <div asp-validation-summary="ModelOnly"></div>
         <div>
           <!-- concern that there may be browser vulnerabilities (being able to change useremail value) -->
-          <input asp-for="toDoListItem.UserEmail" value="@UserManager.GetUserName(User)" placeholder="User Email" hidden />
-          <span asp-validation-for="toDoListItem.UserEmail"></span>
+          <input asp-for="ToDoListItem.UserEmail" value="@UserManager.GetUserName(User)" placeholder="User Email" hidden />
+          <span asp-validation-for="ToDoListItem.UserEmail"></span>
         </div>
         <!-- input box for entering task description -->
         <div>
-          <input asp-for="toDoListItem.Description" id="inputBox" class="input-box" placeholder="Enter Task" required />
+          <input asp-for="ToDoListItem.Description" id="inputBox" class="input-box" placeholder="Enter Task" required />
           <!-- add task button -->
           <input id="addTaskButton" type="button" value="Add" class="addtask-button button-hover" />
-          <span asp-validation-for="toDoListItem.Description"></span>
+          <span asp-validation-for="ToDoListItem.Description"></span>
         </div>
       </form>
       <!-- end of input bar -->
@@ -110,7 +107,7 @@
   <br />
 
   <!-- logout button -->
-  <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+  <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Logout" asp-route-returnUrl="@Url.Page("/Login", new { area = "" })">
     <button id="logout" class="logout-button button-hover" type="submit">Logout</button>
   </form>
 </div>

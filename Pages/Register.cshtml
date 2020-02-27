@@ -1,5 +1,6 @@
 ﻿@page
-@model RegisterModel
+@using ToDoList;
+@model RegisterModel;
 @{
   ViewData["Title"] = "Register";
   ViewData["Header"] = "";
@@ -19,15 +20,15 @@
       </div>
       <br />
       @*<div class="form-group">
-      <input required asp-for="Input.UserName" class="form-control" placeholder="Username" />
-      <span asp-validation-for="Input.UserName" class="text-danger"></span>
-    </div>
-    <br />*@
+          <input required asp-for="Input.UserName" class="form-control" placeholder="Username" />
+          <span asp-validation-for="Input.UserName" class="text-danger"></span>
+        </div>
+        <br />*@
       <div class="form-group">
-      <input required asp-for="Input.DisplayName" class="form-control" placeholder="Username" />
-      <span asp-validation-for="Input.DisplayName" class="text-danger"></span>
-    </div>
-    <br />
+        <input required asp-for="Input.DisplayName" class="form-control" placeholder="Username" />
+        <span asp-validation-for="Input.DisplayName" class="text-danger"></span>
+      </div>
+      <br />
       <div class="form-group">
         <input required asp-for="Input.Password" class="form-control" placeholder="Password" />
         <span asp-validation-for="Input.Password" class="text-danger"></span>

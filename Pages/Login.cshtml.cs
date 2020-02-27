@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using ToDoList.Models;
 
-namespace ToDoList.Areas.Identity.Pages.Account
+namespace ToDoList
 {
   [AllowAnonymous]
   public class LoginModel : PageModel

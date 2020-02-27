@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using ToDoList.Models;
 
-namespace ToDoList.Areas.Identity.Pages.Account
+namespace ToDoList
 {
   [AllowAnonymous]
   public class RegisterModel : PageModel
@@ -23,19 +23,16 @@ namespace ToDoList.Areas.Identity.Pages.Account
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly ILogger<RegisterModel> _logger;
-    //private readonly IEmailSender _emailSender;
 
     public RegisterModel(
         UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
         ILogger<RegisterModel> logger
-              //, IEmailSender emailSender
       )
     {
       _userManager = userManager;
       _signInManager = signInManager;
       _logger = logger;
-      //_emailSender = emailSender;
     }
 
     [BindProperty]
@@ -51,10 +48,6 @@ namespace ToDoList.Areas.Identity.Pages.Account
       [EmailAddress]
       [Display(Name = "Email")]
       public string Email { get; set; }
-
-      //[Required]
-      //[Display(Name = "UserName")]
-      //public string UserName { get; set; }
 
       [Required]
       [Display(Name = "UserName")]

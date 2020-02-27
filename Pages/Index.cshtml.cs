@@ -7,27 +7,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ToDoList.Models;
-using ToDoList.Resources;
+using ToDoList.Data;
 
 namespace ToDoList
 {
   [Authorize]
   public class HomeModel : PageModel
-    {
+  {
 
-    private readonly ToDoList.Data.ToDoListContext _context;
-    private readonly ToDoList.Controllers.ToDoListController controller;
-    
+    private readonly ToDoListContext _context;
 
-    public HomeModel(ToDoList.Data.ToDoListContext context, ToDoList.Controllers.ToDoListController controller)
+
+    public HomeModel(ToDoListContext context
+      )
     {
       _context = context;
-      this.controller = controller;
     }
 
     public List<ToDoListItem> ToDoListItems { get; set; }
     [BindProperty]
-    public ToDoListItem toDoListItem { get; set; }
+    public ToDoListItem ToDoListItem { get; set; }
 
     public async Task OnGetAsync()
     {
@@ -41,7 +40,7 @@ namespace ToDoList
         return Page();
       }
 
-      _context.ToDoListItem.Add(toDoListItem);
+      _context.ToDoListItem.Add(ToDoListItem);
       await _context.SaveChangesAsync();
 
       return RedirectToPage("Index");
@@ -54,11 +53,11 @@ namespace ToDoList
         return NotFound();
       }
 
-      toDoListItem = await _context.ToDoListItem.FindAsync(id);
+      ToDoListItem = await _context.ToDoListItem.FindAsync(id);
 
-      if (toDoListItem != null)
+      if (ToDoListItem != null)
       {
-        _context.ToDoListItem.Remove(toDoListItem);
+        _context.ToDoListItem.Remove(ToDoListItem);
         await _context.SaveChangesAsync();
       }
 
@@ -74,7 +73,7 @@ namespace ToDoList
         return Page();
       }
 
-      _context.Attach(toDoListItem).State = EntityState.Modified;
+      _context.Attach(ToDoListItem).State = EntityState.Modified;
 
       try
       {
@@ -82,7 +81,7 @@ namespace ToDoList
       }
       catch (DbUpdateConcurrencyException)
       {
-        if (!ToDoListItemExists(toDoListItem.Id))
+        if (!ToDoListItemExists(ToDoListItem.Id))
         {
           return NotFound();
         }

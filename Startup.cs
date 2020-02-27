@@ -11,11 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ToDoList.Controllers;
 using ToDoList.Data;
 using ToDoList.Models;
-using ToDoList.Repositories;
-using ToDoList.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
@@ -43,16 +40,10 @@ namespace ToDoList
                                                })
           .AddEntityFrameworkStores<ToDoListContext>()
       .AddDefaultTokenProviders();
-      services.ConfigureApplicationCookie(options => options.LoginPath = "/Identity/Account/Login");
+      services.ConfigureApplicationCookie(options => options.LoginPath = "/Login");
 
       services.AddRazorPages();
       services.AddControllers();
-      services.AddTransient<ToDoListService>();
-      //services.AddTransient<IEmailSender, IEmailSender>();
-
-      services.AddScoped<IToDoListRepository, ToDoListRepository>();
-      services.AddScoped<IToDoListService, ToDoListService>();
-      services.AddScoped<ToDoListController>();
 
       services.AddAutoMapper(typeof(Startup));
       services.AddControllersWithViews();
