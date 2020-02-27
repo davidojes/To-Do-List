@@ -73,9 +73,9 @@ function listItemEventListeners() {
   textArea.style.height = this.offsetHeight + "px";
 
   this.parentElement.remove();
+  textArea.focus();
   checkBoxes.forEach(function (item) { item.disabled = true; });
   deleteButtons.forEach(function (item) { item.disabled = true; });
-  // to be moved to var at the top of the file
   addTaskButton.disabled = true;
   inputBox.disabled = true;
 
