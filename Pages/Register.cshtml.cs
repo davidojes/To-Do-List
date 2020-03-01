@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using ToDoList.Data;
 using ToDoList.Models;
 
 namespace ToDoList
@@ -23,16 +24,19 @@ namespace ToDoList
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly ILogger<RegisterModel> _logger;
+    private readonly ToDoListContext _context;
 
     public RegisterModel(
         UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
-        ILogger<RegisterModel> logger
+        ILogger<RegisterModel> logger,
+        ToDoListContext context
       )
     {
       _userManager = userManager;
       _signInManager = signInManager;
       _logger = logger;
+      _context = context;
     }
 
     [BindProperty]
@@ -83,6 +87,12 @@ namespace ToDoList
         {
           _logger.LogInformation("User created a new account with password.");
 
+          ToDoListItem toDoListItem1 = new ToDoListItem(Input.Email, "Create an account on todolist.com", true);
+          ToDoListItem toDoListItem2 = new ToDoListItem(Input.Email, "Add a new to-do", false);
+          _context.ToDoListItem.Add(toDoListItem1);
+          _context.ToDoListItem.Add(toDoListItem2);
+          await _context.SaveChangesAsync();
+
           var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
           code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
           var callbackUrl = Url.Page(
@@ -92,7 +102,7 @@ namespace ToDoList
               protocol: Request.Scheme);
 
           //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-              //$"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+          //$"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
           if (_userManager.Options.SignIn.RequireConfirmedAccount)
           {

@@ -14,5 +14,17 @@ namespace ToDoList.Models
     public string UserEmail { get; set; }
     public string Description { get; set; }
     public bool IsCompleted { get; set; }
+
+    public ToDoListItem()
+    {
+    }
+
+    public ToDoListItem(string userEmail, string description, bool isCompleted)
+    {
+      //Id = id;
+      UserEmail = userEmail;
+      Description = description;
+      IsCompleted = isCompleted;
+    }
   }
 }
