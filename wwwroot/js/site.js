@@ -72,7 +72,13 @@ function listItemEventListeners() {
   textArea.value = editValue;
   textArea.style.height = this.offsetHeight + "px";
 
-  this.parentElement.remove();
+  let taskListItem = this.parentElement;
+  taskListItem.remove();
+
+  let lis = document.getElementsByClassName("task-list-li");
+  lis = Array.from(lis);
+  lis.forEach(function (item) { item.className = "task-list-li"; });
+
   textArea.focus();
   checkBoxes.forEach(function (item) { item.disabled = true; });
   deleteButtons.forEach(function (item) { item.disabled = true; });
@@ -152,7 +158,7 @@ function addTask() {
     this.parentElement.parentElement.submit();
   }
   else {
-    inputBox.className = "input-box-prompt";
+    inputBox.className = "input-box prompt";
   }
 }
 

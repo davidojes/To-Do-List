@@ -29,10 +29,6 @@
 /*Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 576px) {
 
-  .addtask-button {
-    margin-top: 5px;
-  }
-
   .edit-input-box {
     width: 60%;
   }
@@ -41,12 +37,12 @@
     margin-bottom: 35px;
   }
 
-  h2 {
-    font-size: 1.2rem;
-  }
-
   header {
     padding: 10px 10px;
+  }
+
+  .input-box {
+    width: 85%;
   }
 
   .list-container {
@@ -72,9 +68,6 @@
 }
 
 @media (max-width: 322px) {
-  .addtask-button {
-    display: block;
-  } 
 
   .input-box {
     width: 80%;

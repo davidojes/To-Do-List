@@ -20,8 +20,10 @@
 <div class="list-container-wrapper">
   <div class="list-container">
     <div class="task-list-header">
+      <div class="header-checkbox">
+        <input disabled checked type="checkbox" />
+      </div>
       <h2>Tasks</h2>
-      <h4>Click a task to edit it</h4>
     </div>
     <!-- ul to display to do list -->
     <ul id="taskList" class="task-list">
@@ -34,7 +36,7 @@
         @* checks if the primary key of the current list item matches the currently logged in user *@
       if (item.UserEmail.Equals(UserManager.GetUserName(User)))
       {
-      <li>
+      <li class="task-list-li hover">
         <div class="list-item-container">
           <div class="checkbox-container">
             <input type="checkbox" class="@isTicked checkbox" />
@@ -82,7 +84,6 @@
         }
       }
     </ul>
-    <br />
 
     <!-- add task bar -->
     <div class="task-list-inputbar">
@@ -95,7 +96,7 @@
         </div>
         <!-- input box for entering task description -->
         <div>
-          <input asp-for="ToDoListItem.Description" id="inputBox" class="input-box" placeholder="Enter Task" required />
+          <textarea asp-for="ToDoListItem.Description" id="inputBox" class="input-box" placeholder="Enter Task" required ></textarea>
           <!-- add task button -->
           <input id="addTaskButton" type="button" value="Add" class="addtask-button button-hover" />
           <span asp-validation-for="ToDoListItem.Description"></span>
