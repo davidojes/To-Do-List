@@ -13,10 +13,10 @@
   <div class="login-form-container">
     <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
       <h4>Create a new account.</h4>
-      @*<div asp-validation-summary="All" class="text-danger"></div>*@
+      <div asp-validation-summary="All" class="text-danger"></div>
       <div class="form-group">
         <input required asp-for="Input.Email" class="form-control" placeholder="Email Address" />
-        <span asp-validation-for="Input.Email" class="text-danger"></span>
+        @*<span asp-validation-for="Input.Email" class="text-danger"></span>*@
       </div>
       <br />
       @*<div class="form-group">
@@ -26,12 +26,12 @@
         <br />*@
       <div class="form-group">
         <input required asp-for="Input.DisplayName" class="form-control" placeholder="Username" />
-        <span asp-validation-for="Input.DisplayName" class="text-danger"></span>
+        @*<span asp-validation-for="Input.DisplayName" class="text-danger"></span>*@
       </div>
       <br />
       <div class="form-group">
         <input required asp-for="Input.Password" class="form-control" placeholder="Password" />
-        <span asp-validation-for="Input.Password" class="text-danger"></span>
+        @*<span asp-validation-for="Input.Password" class="text-danger"></span>*@
       </div>
       <br />
       <div class="form-group">
