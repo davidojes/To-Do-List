@@ -93,7 +93,7 @@ function listItemEventListeners() {
 
 // a function that adds delete symbol to delete buttons
 function setupDeleteButton(item) {
-  item.value = "\u00D7";
+  //item.value = "\u00D7";
 }
 
 function setupHiddenCheckBox(item) {
@@ -151,10 +151,10 @@ function addTask() {
   validateInput(userInput);
 
   if (inputIsValid) {
-    newTaskListItem = document.createElement("li");
-    taskList.appendChild(newTaskListItem);
-    newTaskListItem.innerHTML = userInput;
-    setupTaskListItems(newTaskListItem);
+    //newTaskListItem = document.createElement("li");
+    //taskList.appendChild(newTaskListItem);
+    //newTaskListItem.innerHTML = userInput;
+    //setupTaskListItems(newTaskListItem);
     this.parentElement.parentElement.submit();
   }
   else {
