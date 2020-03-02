@@ -75,9 +75,9 @@ function listItemEventListeners() {
   let taskListItem = this.parentElement;
   taskListItem.remove();
 
-  let lis = document.getElementsByClassName("task-list-li");
-  lis = Array.from(lis);
-  lis.forEach(function (item) { item.className = "task-list-li"; });
+  //let lis = document.getElementsByClassName("task-list-li");
+  //lis = Array.from(lis);
+  //lis.forEach(function (item) { item.className = "task-list-li"; });
 
   textArea.focus();
   checkBoxes.forEach(function (item) { item.disabled = true; });

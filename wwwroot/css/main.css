@@ -212,10 +212,6 @@ nav {
   position: relative;
 }
 
-.task-list-li.hover:hover{
-  background-color: #ffead6;
-}
-
  .task-list-inputbar {
   padding-left: 20px;
   position: relative;

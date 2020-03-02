@@ -36,7 +36,7 @@
         @* checks if the primary key of the current list item matches the currently logged in user *@
       if (item.UserEmail.Equals(UserManager.GetUserName(User)))
       {
-      <li class="task-list-li hover">
+      <li class="task-list-li">
         <div class="list-item-container">
           <div class="checkbox-container">
             <input type="checkbox" class="@isTicked checkbox" />
