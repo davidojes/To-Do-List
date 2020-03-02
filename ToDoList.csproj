@@ -5,6 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200301232251_DropUnusedColumns.cs" />
+    <Compile Remove="Migrations\20200301232251_DropUnusedColumns.Designer.cs" />
+    <Compile Remove="Migrations\20200301233459_RemoveEmailConfirmedColumn.cs" />
+    <Compile Remove="Migrations\20200301233459_RemoveEmailConfirmedColumn.Designer.cs" />
+    <Compile Remove="Migrations\20200302001619_FixingUpdateIssue.cs" />
+    <Compile Remove="Migrations\20200302001619_FixingUpdateIssue.Designer.cs" />
+    <Compile Remove="Migrations\20200302015615_Test.cs" />
+    <Compile Remove="Migrations\20200302015615_Test.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Collection.EntityFrameWorkCore" Version="1.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />

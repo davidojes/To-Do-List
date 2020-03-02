@@ -10,8 +10,8 @@ using ToDoList.Data;
 namespace ToDoList.Migrations
 {
     [DbContext(typeof(ToDoListContext))]
-    [Migration("20200301233459_RemoveEmailConfirmedColumn")]
-    partial class RemoveEmailConfirmedColumn
+    [Migration("20200302021152_RestoreIdentity")]
+    partial class RestoreIdentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

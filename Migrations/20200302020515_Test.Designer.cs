@@ -10,8 +10,8 @@ using ToDoList.Data;
 namespace ToDoList.Migrations
 {
     [DbContext(typeof(ToDoListContext))]
-    [Migration("20200301232251_DropUnusedColumns")]
-    partial class DropUnusedColumns
+    [Migration("20200302020515_Test")]
+    partial class Test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
