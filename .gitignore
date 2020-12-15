@@ -1,5 +1,7 @@
 /.vs/*
 /bin/*
 /obj/*
+/Task-Butler-Remote/*
 /appsettings.json
 /appsettings.Development.json
+/TaskButler/*
